@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://postgres:1@localhost:5432/market');
 const { Product } = require('./product');
 
-const Manufacturer = db.define('manufacturer', {
+const Category = db.define('category', {
 		name: {
 			type: Sequelize.STRING,
 			allowNull: false,
@@ -13,22 +13,33 @@ const Manufacturer = db.define('manufacturer', {
 			allowNull: true,
 			unique: false,
 		},
-		logo: {
+		image: {
 			type: Sequelize.STRING,
 			allowNull: true,
 			unique: true,
 		},
-		number_goods: {
-			type: Sequelize.INTEGER,
+		availability: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			unique: false,
+		},
+		tree: {
+			type: Sequelize.JSON,
+			allowNull: false,
+			unique: false,
+		},
+		seo: {
+			type: Sequelize.JSON,
 			allowNull: true,
 			unique: false,
 		},
+
 	},
 );
-Manufacturer.hasMany(Product, { onDelete: "cascade" });
+Category.hasMany(Product);
 db.sync();
 
 module.exports = {
 	db,
-	Manufacturer
+	Category
 };

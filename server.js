@@ -1,7 +1,6 @@
 const views = require('koa-views');
 const logger = require('koa-morgan');
 const Router = require('koa-router');
-const bcrypt = require('bcrypt-nodejs');
 const koaBody = require('koa-body');
 const cors = require('@koa/cors');
 const router = new Router();

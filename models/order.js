@@ -1,38 +1,34 @@
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://postgres:1@localhost:5432/market');
-const bcrypt = require('bcrypt-nodejs');
+const { Product } = require('./product');
+const { Orderproduct } = require('./order-product');
 
-const User = db.define('user', {
-		email: {
-			type: Sequelize.STRING,
-			allowNull: false,
-			unique: true,
-		},
-		password: {
-			type: Sequelize.STRING,
-			allowNull: false,
-			unique: true,
-		},
-		group: {
-			type: Sequelize.STRING,
+const Order = db.define('order', {
+		num_product: {
+			type: Sequelize.INTEGER,
 			allowNull: false,
 			unique: false,
 		},
-		contacts: {
-			type: Sequelize.JSON,
-			allowNull: true,
-			unique: true,
+		price_product: {
+			type: Sequelize.FLOAT,
+			allowNull: false,
+			unique: false,
+		},
+		price_order: {
+			type: Sequelize.FLOAT,
+			allowNull: false,
+			unique: false,
 		},
 		status: {
 			type: Sequelize.STRING,
 			allowNull: true,
 			unique: false,
 		},
-	discount: {
-			type: Sequelize.INTEGER,
+		comment: {
+			type: Sequelize.TEXT,
 			allowNull: true,
 			unique: false,
-	},
+		},
 	location: {
 		type: Sequelize.STRING,
 		allowNull: true,
@@ -40,14 +36,9 @@ const User = db.define('user', {
 	}
 	}
 );
-
-User.beforeCreate((user, options) => {
-	const salt = bcrypt.genSaltSync(10);
-	user.password = bcrypt.hashSync(user.password, salt);
-});
+Order.belongsToMany(Product, {through: Orderproduct});
 db.sync();
-
 module.exports = {
 	db,
-	User
+	Order
 };
