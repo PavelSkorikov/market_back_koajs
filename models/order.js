@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://postgres:1@localhost:5432/market');
-const { Product } = require('./product');
-const { Orderproduct } = require('./order-product');
 
 const Order = db.define('order', {
 		num_product: {
@@ -36,7 +34,7 @@ const Order = db.define('order', {
 	}
 	}
 );
-Order.belongsToMany(Product, {through: Orderproduct});
+
 db.sync();
 module.exports = {
 	db,

@@ -12,6 +12,9 @@ const Orderproduct = db.define('Orderproduct', {
 	}
 	}
 );
+
+Order.belongsToMany(Product, {through: Orderproduct});
+Product.belongsToMany(Order, {through: Orderproduct});
 db.sync();
 
 module.exports = {

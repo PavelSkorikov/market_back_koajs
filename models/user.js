@@ -19,11 +19,6 @@ const User = db.define('user', {
 			allowNull: false,
 			unique: false,
 		},
-		contacts: {
-			type: Sequelize.JSON,
-			allowNull: true,
-			unique: true,
-		},
 		status: {
 			type: Sequelize.STRING,
 			allowNull: true,

@@ -23,17 +23,11 @@ const Category = db.define('category', {
 			allowNull: false,
 			unique: false,
 		},
-		tree: {
-			type: Sequelize.JSON,
+		parent: {
+			type: Sequelize.INTEGER,
 			allowNull: false,
 			unique: false,
-		},
-		seo: {
-			type: Sequelize.JSON,
-			allowNull: true,
-			unique: false,
-		},
-
+		}
 	},
 );
 Category.hasMany(Product);

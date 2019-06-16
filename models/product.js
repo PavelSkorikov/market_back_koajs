@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://postgres:1@localhost:5432/market');
 const { Image } = require('./image');
-const { Order } = require('./order');
-const { Orderproduct } = require('./order-product');
 
 const Product = db.define('product', {
 		name: {
@@ -34,15 +32,9 @@ const Product = db.define('product', {
 			type: Sequelize.INTEGER,
 			allowNull: true,
 			unique: false,
-		},
-		seo: {
-			type: Sequelize.JSON,
-			allowNull: true,
-			unique: false,
-		},
+		}
 	},
 );
-Product.belongsToMany(Order, {through: Orderproduct});
 Product.hasMany(Image, { onDelete: "cascade" });
 
 db.sync();
