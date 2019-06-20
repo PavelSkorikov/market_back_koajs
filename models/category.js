@@ -1,39 +1,45 @@
-const Sequelize = require('sequelize');
-const db = new Sequelize('postgres://postgres:1@localhost:5432/market');
-const { Product } = require('./product');
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  var Category = sequelize.define('Category', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER
+    },
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    description: {
+      unique: true,
+      type: DataTypes.STRING
+    },
+    image: {
+      type:DataTypes.STRING
+    },
+    availability: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    level: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    parent_name: {
+      type: DataTypes.STRING
+    }
+  }, {
+    classMethods: {
+      associate: function (models) {
+        Category.hasMany(models.Product, {
+          foreignKey: 'CategoryId',
+          onDelete: 'CASCADE'
+        });
+      }
+    }
+  });
 
-const Category = db.define('category', {
-		name: {
-			type: Sequelize.STRING,
-			allowNull: false,
-			unique: true,
-		},
-		description: {
-			type: Sequelize.STRING,
-			allowNull: true,
-			unique: false,
-		},
-		image: {
-			type: Sequelize.STRING,
-			allowNull: true,
-			unique: true,
-		},
-		availability: {
-			type: Sequelize.STRING,
-			allowNull: false,
-			unique: false,
-		},
-		parent: {
-			type: Sequelize.INTEGER,
-			allowNull: false,
-			unique: false,
-		}
-	},
-);
-Category.hasMany(Product);
-db.sync();
-
-module.exports = {
-	db,
-	Category
+  return Category;
 };
