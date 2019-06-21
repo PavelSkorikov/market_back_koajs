@@ -4,14 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       allowNull: false,
       unique: true,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true
+      }
     },
     password: {
-      allowNull: false,
-      unique: false,
-      type: DataTypes.STRING
-    },
-    group: {
       allowNull: false,
       unique: false,
       type: DataTypes.STRING
@@ -35,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     User.hasOne(models.Contact, {
       foreignKey: "UserId",
       onDelete: "CASCADE"
+    });
+    User.belongsTo(models.Group, {
+      foreignKey: "GroupId",
+      onDelete: 'CASCADE'
     });
   };
 

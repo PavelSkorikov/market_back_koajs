@@ -8,19 +8,34 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     name: {
+      type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      type: DataTypes.STRING
+      validate: {
+        notEmpty: true,
+        isAlphanumeric: true,
+        len: [2,250]
+      }
     },
     description: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        len: [5,250]
+      }
     },
     model: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        isAlphanumeric: true,
+        len: [2,250]
+      }
     },
     price: {
       allowNull: false,
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      validate: {
+        isNumeric: true,
+        len: [2,50]
+      }
     },
     availability: {
       allowNull: false,
@@ -29,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     count: {
       allowNull: false,
       type: DataTypes.INTEGER
-    },
+    }
   }, {
     associate: function(models) {
 			Product.belongsTo(models.Company, {

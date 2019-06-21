@@ -25,7 +25,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       comment: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING,
+        validate: {
+          isAlphanumeric: true,
+          len: [2,250]
+        }
       },
       pyment_method: {
         allowNull: false,

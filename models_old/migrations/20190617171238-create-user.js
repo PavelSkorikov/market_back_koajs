@@ -1,53 +1,38 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Contacts', {
+    return queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      country: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      region: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      city: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      address: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      iso: {
-        type: Sequelize.STRING
-      },
-      phone: {
+      email: {
         allowNull: false,
         unique: true,
+        type: Sequelize.STRING,
+        validate: {
+          isEmail: true
+        },
+      },
+      password: {
+        allowNull: false,
+        unique: false,
         type: Sequelize.STRING
       },
-      firstname: {
+      status: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      lastname: {
-        allowNull: false,
-        type: Sequelize.STRING
+      discount: {
+        type: Sequelize.INTEGER
       },
-      patronymic: {
-        type: Sequelize.STRING
-      },
-      UserId: {
+      GroupId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Users',
+          model: 'Groups',
           key: 'id'
         }
       },
@@ -62,6 +47,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Contacts');
+    return queryInterface.dropTable('Users');
   }
 };

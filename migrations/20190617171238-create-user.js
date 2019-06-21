@@ -11,15 +11,14 @@ module.exports = {
       email: {
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          isEmail: true
+        },
       },
       password: {
         allowNull: false,
         unique: false,
-        type: Sequelize.STRING
-      },
-      group: {
-        allowNull: false,
         type: Sequelize.STRING
       },
       status: {
@@ -28,6 +27,14 @@ module.exports = {
       },
       discount: {
         type: Sequelize.INTEGER
+      },
+      GroupId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Groups',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

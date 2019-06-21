@@ -5,7 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     price_products: DataTypes.JSON,
     price_order: DataTypes.FLOAT,
     status: DataTypes.STRING,
-    comment: DataTypes.TEXT,
+    comment: {
+      type: DataTypes.STRING,
+      validate: {
+        isAlphanumeric: true,
+        len: [2,250]
+      }
+    },
     pyment_method: DataTypes.STRING,
     delivery_method: DataTypes.STRING
   }, {});

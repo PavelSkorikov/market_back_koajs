@@ -1,49 +1,49 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Products', {
+    return queryInterface.createTable('Orders', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.STRING
-      },
-      description: {
-        type: Sequelize.STRING
-      },
-      model: {
-        type: Sequelize.STRING
-      },
-      price: {
-        allowNull: false,
-        type: Sequelize.FLOAT
-      },
-      availability: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      count: {
+      count_products: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      CompanyId: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Companies',
-          key: 'id'
+      price_products: {
+        allowNull: true,
+        type: Sequelize.JSON
+      },
+      price_order: {
+        allowNull: false,
+        type: Sequelize.FLOAT
+      },
+      status: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      comment: {
+        type: Sequelize.STRING,
+        validate: {
+          isAlphanumeric: true,
+          len: [2,250]
         }
       },
-      CategoryId: {
+      pyment_method: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      delivery_method: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      UserId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Categories',
+          model: 'Users',
           key: 'id'
         }
       },
@@ -58,6 +58,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Products');
+    return queryInterface.dropTable('Orders');
   }
 };

@@ -9,13 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        unique: true,
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.STRING
+        validate: {
+          notEmpty: true,
+          isAlpha: true,
+          len: [2,50]
+        }
       },
       description: {
-        unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          len: [2,250]
+        }
       },
       image: {
         type: Sequelize.STRING
