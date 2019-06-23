@@ -4,9 +4,9 @@ module.exports = {
     return queryInterface.createTable('Products', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
       },
       name: {
         type: Sequelize.STRING,
@@ -47,7 +47,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       CompanyId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         onDelete: 'CASCADE',
         references: {
           model: 'Companies',
@@ -55,7 +55,7 @@ module.exports = {
         }
       },
       CategoryId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         onDelete: 'CASCADE',
         references: {
           model: 'Categories',

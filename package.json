@@ -31,7 +31,8 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.8.5",
     "sequelize-cli": "^5.5.0",
-    "update-notifier": "^2.5.0"
+    "update-notifier": "^2.5.0",
+    "uuidv4": "^4.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
