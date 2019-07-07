@@ -21,10 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [2,250]
       }
-    },
-    image: {
-      type:DataTypes.STRING
-    },
+    }
     availability: {
       allowNull: false,
       type: DataTypes.STRING

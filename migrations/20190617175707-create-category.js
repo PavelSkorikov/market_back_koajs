@@ -23,15 +23,12 @@ module.exports = {
 					len: [2,250]
 				}
 			},
-			image: {
-				type: Sequelize.STRING
-			},
 			availability: {
 				allowNull: false,
 				type: Sequelize.STRING
 			},
 			level: {
-				allowNull: false,
+				allowNull: true,
 				type: Sequelize.INTEGER
 			},
 			parent_name: {

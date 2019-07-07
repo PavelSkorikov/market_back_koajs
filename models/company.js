@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         len: [2,250]
       }
     },
-    logo: DataTypes.STRING,
     count_products: DataTypes.INTEGER
   }, {classMethods: {
       associate: function (models) {

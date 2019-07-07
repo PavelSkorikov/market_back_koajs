@@ -18,6 +18,8 @@ const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://postgres:1@localhost:5432/market');
 
 
+
+
 // response
 app.use(ctx => {
 	ctx.body = 'Hello Koa start';

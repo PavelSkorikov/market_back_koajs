@@ -23,19 +23,9 @@ module.exports = {
           len: [2,250]
         }
       },
-      logo: {
-        type: Sequelize.STRING
-      },
       count_products: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       }
     });
   },
