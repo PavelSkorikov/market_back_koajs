@@ -1,31 +1,31 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Company = sequelize.define('Company', {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-        isAlphanumeric: true,
-        len: [2,250]
-      }
+      unique: true
     },
     description: {
-      type: DataTypes.STRING,
-      validate: {
-        len: [2,250]
-      }
+      type: DataTypes.STRING
     },
-    logo: DataTypes.STRING,
-    count_products: DataTypes.INTEGER
-  }, {classMethods: {
-      associate: function (models) {
-        Company.hasMany(models.Product, {
-          foreignKey: "CompanyId",
-          onDelete: "CASCADE"
-        });
-      }
-    }});
-
+    count_products: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
+  });
+  Company.associate = function(models) {
+    Company.hasMany(models.Product, {
+      foreignKey: "CompanyId",
+      onDelete: "CASCADE"
+    });
+  };
   return Company;
 };

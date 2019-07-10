@@ -11,21 +11,22 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-          notEmpty: true,
-          isAlphanumeric: true,
-          len: [2,250]
-        }
+        unique: true
       },
       description: {
-        type: Sequelize.STRING,
-        validate: {
-          len: [2,250]
-        }
+        type: Sequelize.STRING
       },
       count_products: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },

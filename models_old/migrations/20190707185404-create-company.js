@@ -1,28 +1,24 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ProductOrders', {
+    return queryInterface.createTable('Companies', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-      ProductId: {
-        type: Sequelize.UUID,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Products',
-          key: 'id'
-        }
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
-      OrderId: {
-        type: Sequelize.UUID,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Orders',
-          key: 'id'
-        }
+      description: {
+        type: Sequelize.STRING
+      },
+      count_products: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,
@@ -35,6 +31,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('ProductOrders');
+    return queryInterface.dropTable('Companies');
   }
 };

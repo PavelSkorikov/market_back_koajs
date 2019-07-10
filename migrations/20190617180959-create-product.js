@@ -11,27 +11,17 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-          notEmpty: true,
-          isAlphanumeric: true,
-          len: [2,250]
-        }
+        unique: true
       },
       description: {
-        type: Sequelize.STRING,
-        validate: {
-          len: [5,250]
-        }
+        type: Sequelize.STRING
       },
       model: {
-        type: Sequelize.STRING,
-        validate: {
-          isAlphanumeric: true,
-          len: [2,250]
-        }
+        type: Sequelize.STRING
       },
       price: {
         allowNull: false,
+        defaultValue: 0,
         type: Sequelize.FLOAT,
         validate: {
           isNumeric: true,
@@ -40,10 +30,12 @@ module.exports = {
       },
       availability: {
         allowNull: false,
-        type: Sequelize.STRING
+        defaultValue: true,
+        type: Sequelize.BOOLEAN
       },
       count: {
         allowNull: false,
+        defaultValue: 0,
         type: Sequelize.INTEGER
       },
       CompanyId: {

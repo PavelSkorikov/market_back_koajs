@@ -40,7 +40,7 @@ module.exports = {
         allowNull: false,
         validate: {
           notEmpty: true,
-          len: [2,100]
+          len: [2,200]
         }
       },
       iso: {

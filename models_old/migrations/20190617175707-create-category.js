@@ -11,27 +11,19 @@ module.exports = {
 			name: {
 				type: Sequelize.STRING,
 				allowNull: false,
-				validate: {
-					notEmpty: true,
-					isAlpha: true,
-					len: [2,50]
-				}
+				unique: true
 			},
 			description: {
-				type: Sequelize.STRING,
-				validate: {
-					len: [2,250]
-				}
-			},
-			image: {
 				type: Sequelize.STRING
 			},
 			availability: {
 				allowNull: false,
-				type: Sequelize.STRING
+				defaultValue: true,
+				type: Sequelize.BOOLEAN
 			},
 			level: {
 				allowNull: false,
+				defaultValue: 0,
 				type: Sequelize.INTEGER
 			},
 			parent_name: {

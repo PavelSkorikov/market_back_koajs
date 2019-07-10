@@ -10,18 +10,20 @@ module.exports = {
       },
       count_products: {
         allowNull: false,
+        defaultValue: 0,
         type: Sequelize.INTEGER
       },
       price_products: {
-        allowNull: true,
         type: Sequelize.JSON
       },
       price_order: {
         allowNull: false,
+        defaultValue: 0,
         type: Sequelize.FLOAT
       },
       status: {
         allowNull: false,
+        defaultValue: 'created',
         type: Sequelize.STRING
       },
       comment: {
@@ -33,10 +35,12 @@ module.exports = {
       },
       pyment_method: {
         allowNull: false,
+        defaultValue: 'undefined',
         type: Sequelize.STRING
       },
       delivery_method: {
         allowNull: false,
+        defaultValue: 'undfined',
         type: Sequelize.STRING
       },
       UserId: {

@@ -3,34 +3,24 @@ module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-        isAlphanumeric: true,
-        len: [2,250]
-      }
+      unique: true
     },
     description: {
-      type: DataTypes.STRING,
-      validate: {
-        len: [5,250]
-      }
+      type: DataTypes.STRING
     },
     model: {
-      type: DataTypes.STRING,
-      validate: {
-        isAlphanumeric: true,
-        len: [2,250]
-      }
+      type: DataTypes.STRING
     },
     price: {
       allowNull: false,
+      defaultValue: 0,
       type: DataTypes.FLOAT,
       validate: {
         isNumeric: true,
@@ -39,10 +29,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     availability: {
       allowNull: false,
-      type: DataTypes.STRING
+      defaultValue: true,
+      type: DataTypes.BOOLEAN
     },
     count: {
       allowNull: false,
+      defaultValue: 0,
       type: DataTypes.INTEGER
     }
   }, {

@@ -9,12 +9,10 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4
       },
       location: {
-        allowNull: false,
-        unique: true,
         type: Sequelize.STRING
       },
       ProductId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         onDelete: 'CASCADE',
         references: {
           model: 'Products',

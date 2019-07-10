@@ -9,8 +9,6 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4
       },
       location: {
-        allowNull: false,
-        unique: true,
         type: Sequelize.STRING
       },
       ProductId: {
@@ -21,6 +19,14 @@ module.exports = {
           key: 'id'
         }
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
   },
   down: (queryInterface, Sequelize) => {

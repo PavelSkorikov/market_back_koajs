@@ -1,28 +1,33 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
+    },
     email: {
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      type: DataTypes.STRING,
       validate: {
         isEmail: true
       }
     },
     password: {
       allowNull: false,
-      unique: false,
       type: DataTypes.STRING
     },
     status: {
       allowNull: false,
-      unique: false,
+      defaultValue: 'offline',
       type: DataTypes.STRING
     },
     discount: {
-      allowNull: true,
-      unique: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
     }
   }, {});
   User.associate = function(models) {

@@ -9,24 +9,26 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4
       },
       email: {
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING,
         validate: {
           isEmail: true
         },
       },
       password: {
         allowNull: false,
-        unique: false,
         type: Sequelize.STRING
       },
       status: {
         allowNull: false,
+        defaultValue: 'offline',
         type: Sequelize.STRING
       },
       discount: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
       GroupId: {
         type: Sequelize.UUID,

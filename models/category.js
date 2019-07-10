@@ -1,33 +1,28 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Category = sequelize.define('Category', {
+  const Category = sequelize.define('Category', {
     id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-        isAlpha: true,
-        len: [2,50]
-      }
+      unique: true
     },
     description: {
-      type: DataTypes.STRING,
-      validate: {
-        len: [2,250]
-      }
-    }
+      type: DataTypes.STRING
+    },
     availability: {
       allowNull: false,
-      type: DataTypes.STRING
+      defaultValue: true,
+      type: DataTypes.BOOLEAN
     },
     level: {
       allowNull: false,
+      defaultValue: 0,
       type: DataTypes.INTEGER
     },
     parent_name: {

@@ -40,7 +40,7 @@ module.exports = {
         allowNull: false,
         validate: {
           notEmpty: true,
-          len: [2,100]
+          len: [2,200]
         }
       },
       iso: {
@@ -89,7 +89,7 @@ module.exports = {
         }
       },
       UserId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
