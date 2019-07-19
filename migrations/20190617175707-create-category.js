@@ -21,11 +21,6 @@ module.exports = {
 				defaultValue: true,
 				type: Sequelize.BOOLEAN
 			},
-			level: {
-				allowNull: false,
-				defaultValue: 0,
-				type: Sequelize.INTEGER
-			},
 			parent_name: {
 				type: Sequelize.STRING
 			},

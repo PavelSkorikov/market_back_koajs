@@ -20,11 +20,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: true,
       type: DataTypes.BOOLEAN
     },
-    level: {
-      allowNull: false,
-      defaultValue: 0,
-      type: DataTypes.INTEGER
-    },
     parent_name: {
       type: DataTypes.STRING
     }

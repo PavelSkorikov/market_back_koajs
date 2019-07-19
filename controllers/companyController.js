@@ -4,8 +4,6 @@ const Company = require("../models").Company;
 exports.addCompany = async function (ctx) {
 	let companyName = await ctx.request.body.name;
 	let companyDescription = await ctx.request.body.description;
-	console.log(companyName);
-	console.log(companyDescription);
 	try {
 		await Company.create({ name: companyName, description: companyDescription });
 		ctx.status = 200;
@@ -45,9 +43,7 @@ exports.putCompany = async function (ctx) {
 	let companyId = await ctx.request.body.id;
 	let companyName = await ctx.request.body.name;
 	let companyDescription = await ctx.request.body.description;
-	console.log(companyId);
-	console.log(companyName);
-	console.log(companyDescription);
+	console.log(ctx.request.body);
 
 	try {
 		await Company.update(
