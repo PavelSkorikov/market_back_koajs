@@ -33,9 +33,24 @@ exports.getCategory = async function (ctx) {
 		ctx.status = 500;
 	}
 };
+//delete category and all subcategories
 exports.delCategory = async function (ctx) {
 	let categoryId = ctx.request.query.id;
+	let categoryName = ctx.request.query.name;
 	try {
+		async function del_children(name) {
+			let childrens = await Category.findAll({ where: { parent_name: name } });
+			if(!childrens) return;
+			await Category.destroy({
+				where: {
+					parent_name: name
+				}
+			});
+			for(child of childrens) {
+				del_children(child.name);
+			}
+		}
+		del_children(categoryName);
 		await Category.destroy({
 			where: {
 				id: categoryId
@@ -56,7 +71,7 @@ exports.putCategory = async function (ctx) {
 	console.log(ctx.request.body);
 
 	try {
-		await Company.update(
+		await Category.update(
 			{ name: categoryName,
 				description: categoryDescription,
 				parent_name: categoryParent_name,
