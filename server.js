@@ -23,6 +23,8 @@ const companyRouter = require("./routes/companyRouter.js");
 app.use(companyRouter.routes());
 const categoryRouter = require("./routes/categoryRouter.js");
 app.use(categoryRouter.routes());
+const productRouter = require("./routes/productRouter.js");
+app.use(productRouter.routes());
 
 router.get('/', main);
 app.use(router.routes());
