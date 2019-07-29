@@ -2,10 +2,10 @@
 const Product = require("../models").Product;
 
 exports.addProduct = async function (ctx) {
-	let productName = await ctx.request.body.name;
-	let productDescription = await ctx.request.body.description;
+	let data = await ctx.request.body;
+	console.log(data);
 	try {
-		await Product.create({ name: productName, description: productDescription });
+		await Product.create(data);
 		ctx.status = 200;
 	}
 	catch (err) {
@@ -26,11 +26,11 @@ exports.getProduct = async function (ctx) {
 	}
 };
 exports.delProduct = async function (ctx) {
-	let companyId = ctx.request.query.id;
-	try {
-		await Company.destroy({
+	let data = ctx.request.query.id;
+		try {
+			await Product.destroy({
 			where: {
-				id: companyId
+				id: data
 			}
 		});
 		ctx.status = 204;

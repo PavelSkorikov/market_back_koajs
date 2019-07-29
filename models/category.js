@@ -23,16 +23,13 @@ module.exports = (sequelize, DataTypes) => {
     parent_name: {
       type: DataTypes.STRING
     }
-  }, {
-    classMethods: {
-      associate: function (models) {
-        Category.hasMany(models.Product, {
-          foreignKey: 'CategoryId',
-          onDelete: 'CASCADE'
-        });
-      }
-    }
   });
+  Category.associate = function(models) {
+    Category.hasMany(models.Product, {
+      foreignKey: "CategoryId",
+      onDelete: "CASCADE"
+    });
+  };
 
   return Category;
 };
