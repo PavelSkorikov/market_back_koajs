@@ -1,9 +1,7 @@
+const Image = require("../models").Image
 
-const Product = require("../models").Product;
 
-exports.addProduct = async function (ctx) {
-	let data = await ctx.request.body;
-	console.log(data);
+exports.addImage = async function (ctx) {
 	//получаем из запроса (при помощи koaBody) объект file
 	let upload = await ctx.request.files;
 	//вытаскиваем из объекта file свойство path - это путь к файлу загруженному на сервер
@@ -14,7 +12,7 @@ exports.addProduct = async function (ctx) {
 	}
 	console.log(files);
 	try {
-		await Product.create(data);
+		ctx.body = JSON.stringify(files, null, 2);
 		ctx.status = 200;
 	}
 	catch (err) {
@@ -23,7 +21,7 @@ exports.addProduct = async function (ctx) {
 	}
 
 };
-exports.getProduct = async function (ctx) {
+exports.getImage = async function (ctx) {
 	try {
 		await Product.findAll().then(products => {
 			ctx.body = products;
@@ -34,7 +32,7 @@ exports.getProduct = async function (ctx) {
 		ctx.status = 500;
 	}
 };
-exports.delProduct = async function (ctx) {
+exports.delImage = async function (ctx) {
 	let data = ctx.request.query.id;
 		try {
 			await Product.destroy({
@@ -48,7 +46,7 @@ exports.delProduct = async function (ctx) {
 		ctx.status = 500;
 	}
 };
-exports.putProduct = async function (ctx) {
+exports.putImage = async function (ctx) {
 	let companyId = await ctx.request.body.id;
 	let companyName = await ctx.request.body.name;
 	let companyDescription = await ctx.request.body.description;

@@ -1,6 +1,3 @@
-const http = require('http');
-const https = require('https');
-const fs = require('fs');
 const views = require('koa-views');
 const logger = require('koa-morgan');
 const Router = require('koa-router');
@@ -13,7 +10,12 @@ const app = new Koa();
 app.use(logger('tiny'));
 app.use(cors());
 app.use(koaBody({
-	jsonLimit: '1kb'
+	jsonLimit: '1mb', // лимит для данных в формате json
+	formLimit: '5mb', // лимит для файлов загружаемых черех multipart/formdata
+	formidable:{uploadDir: './uploads'},    //путь к директории куда будут загружаться файлы
+	multipart: true, // устанавливает возможность загрузки файлов из multipart/formdata
+	multiples: true,	// устанавливает возможность загрузки одновременно нескольких файлов
+	keepExtensions: true // сохраняем оригинальное расширение файла
 }));
 
 const Sequelize = require('sequelize');
@@ -25,6 +27,8 @@ const categoryRouter = require("./routes/categoryRouter.js");
 app.use(categoryRouter.routes());
 const productRouter = require("./routes/productRouter.js");
 app.use(productRouter.routes());
+const imageRouter = require("./routes/imageRouter.js");
+app.use(imageRouter.routes());
 
 router.get('/', main);
 app.use(router.routes());
