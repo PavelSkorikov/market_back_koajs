@@ -6,17 +6,19 @@ exports.addImage = async function (ctx) {
 	let upload = await ctx.request.files;
 	//вытаскиваем из объекта file свойство path - это путь к файлу загруженному на сервер
 	//и помещаем их в массив files
-	let files = [];
+	let files = {};
+	i = 0;
 	for(var key in upload){
-		files.push(upload[key].path);
+		files[i] = upload[key].path;
+		i+=1;
 	}
 	console.log(files);
 	try {
-		ctx.body = JSON.stringify(files, null, 2);
+		ctx.body = files;
 		ctx.status = 200;
 	}
 	catch (err) {
-		console.log('error write to base');
+		console.log('error upload files');
 		ctx.status = 500;
 	}
 

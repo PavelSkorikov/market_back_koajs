@@ -1,20 +1,28 @@
-
 const Product = require("../models").Product;
+const Image = require("../models").Image;
 
+// метод добавления нового товара в базу
 exports.addProduct = async function (ctx) {
+	//считываем из запроса данные
 	let data = await ctx.request.body;
-	console.log(data);
-	//получаем из запроса (при помощи koaBody) объект file
-	let upload = await ctx.request.files;
-	//вытаскиваем из объекта file свойство path - это путь к файлу загруженному на сервер
-	//и помещаем их в массив files
-	let files = [];
-	for(var key in upload){
-		files.push(upload[key].path);
-	}
-	console.log(files);
+	//выбираем из принятых данных информацию о ранее загруженных файлах
+	// фоторгафиях товара
+	image_files = data.files;
+	// создаем в базе Product новый товар,
+	// а в базе Image связанные с ним файлы фотографий
 	try {
-		await Product.create(data);
+		await Product.create(data)
+			.then(()=>{
+				 Product.findOne({where: {name: data.name}})
+					.then(product => {
+						for(key in image_files){
+							Image.create({
+								location: image_files[key],
+								ProductId: product.id
+							});
+						}
+					})
+			});
 		ctx.status = 200;
 	}
 	catch (err) {

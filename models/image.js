@@ -10,14 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     location: {
       type: DataTypes.STRING
     }
-  }, {
-    associate: function(models) {
-      Image.belongsTo(models.Product, {
-        foreignKey: 'ProductId',
-        onDelete: 'CASCADE'
-      });
-  }
-    // associations can be defined here
   });
+  Image.associate = function(models) {
+    Image.belongsTo(models.Product, {
+      foreignKey: 'ProductId',
+      onDelete: 'CASCADE'
+    });
+  };
+
   return Image;
 };
