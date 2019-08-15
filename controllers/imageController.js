@@ -24,9 +24,18 @@ exports.addImage = async function (ctx) {
 
 };
 exports.getImage = async function (ctx) {
+	let product = await ctx.request.query.id;
 	try {
-		await Product.findAll().then(products => {
-			ctx.body = products;
+		await Image.findAll({where: {ProductId: product}}).then(files => {
+			console.log(JSON.stringify(files));
+			let Images = files.map((file) => {
+				return {
+					id: file.id,
+					path: 'http://localhost:3000/' + file.location
+				}
+			});
+			console.log(Images);
+			ctx.body = Images;
 		});
 		ctx.status = 200;
 	}

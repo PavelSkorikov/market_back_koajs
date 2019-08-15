@@ -1,12 +1,14 @@
-const views = require('koa-views');
-const logger = require('koa-morgan');
-const Router = require('koa-router');
-const router = new Router();
-const koaBody = require('koa-body');
-const cors = require('@koa/cors');
-const Koa = require('koa');
-const app = new Koa();
+const views = require('koa-views'),
+ logger = require('koa-morgan'),
+ Router = require('koa-router'),
+	koaBody = require('koa-body'),
+ cors = require('@koa/cors'),
+ Koa = require('koa');
 
+app = new Koa();
+router = new Router();
+
+app.use(require('koa-static')(__dirname));
 app.use(logger('tiny'));
 app.use(cors());
 app.use(koaBody({

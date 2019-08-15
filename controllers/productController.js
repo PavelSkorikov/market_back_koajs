@@ -56,23 +56,40 @@ exports.delProduct = async function (ctx) {
 		ctx.status = 500;
 	}
 };
-exports.putProduct = async function (ctx) {
-	let companyId = await ctx.request.body.id;
-	let companyName = await ctx.request.body.name;
-	let companyDescription = await ctx.request.body.description;
-	console.log(ctx.request.body);
 
+exports.putProduct = async function (ctx) {
+	//считываем из запроса данные
+	let data = await ctx.request.body;
+	//выбираем из принятых данных информацию о ранее загруженных файлах
+	// фоторгафиях товара
+	image_files = data.files;
+	// изменяем в базе Product товар,
+	// а в базу Image добавляем связанные с ним файлы фотографий если они есть
 	try {
-		await Company.update(
-			{name: companyName, description: companyDescription },
-			{
-				where: {
-					id: companyId
+		await Product.update(data, {
+			where: {
+				id: data.id
+			}
+		})
+		//затем, если добавились файлы изображений, то записываем в таблицу Images
+		//пути к файлам и id продукта которому они соответствуют
+			.then(()=>{
+				if(image_files) {
+					Product.findOne({where: {id: data.id}})
+						.then(product => {
+							for (key in image_files) {
+								Image.create({
+									location: image_files[key],
+									ProductId: product.id
+								});
+							}
+						})
 				}
 			});
 		ctx.status = 204;
 	}
 	catch (err) {
+		console.log('error write to base');
 		ctx.status = 500;
 	}
-};
+	};
