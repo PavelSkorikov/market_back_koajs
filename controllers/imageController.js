@@ -1,6 +1,8 @@
-const Image = require("../models").Image
+const Image = require("../models").Image;
+var fs = require("fs");
 
-
+//метод добавления файлов изображений одного товара на сервер
+//и отправки путей к этим файлам обратно клиенту
 exports.addImage = async function (ctx) {
 	//получаем из запроса (при помощи koaBody) объект file
 	let upload = await ctx.request.files;
@@ -13,6 +15,7 @@ exports.addImage = async function (ctx) {
 		i+=1;
 	}
 	console.log(files);
+	//отправляем массив с путями к файлам обратно клиенту
 	try {
 		ctx.body = files;
 		ctx.status = 200;
@@ -21,8 +24,11 @@ exports.addImage = async function (ctx) {
 		console.log('error upload files');
 		ctx.status = 500;
 	}
-
 };
+
+// метод который по запрошенному клиентом id товара отправляет
+// назад JSON содержащий id картинок и пути к файлам картинок
+// соответствущих запрошенному товару
 exports.getImage = async function (ctx) {
 	let product = await ctx.request.query.id;
 	try {
@@ -43,33 +49,31 @@ exports.getImage = async function (ctx) {
 		ctx.status = 500;
 	}
 };
-exports.delImage = async function (ctx) {
-	let data = ctx.request.query.id;
-		try {
-			await Product.destroy({
-			where: {
-				id: data
-			}
-		});
-		ctx.status = 204;
-	}
-	catch (err) {
-		ctx.status = 500;
-	}
-};
-exports.putImage = async function (ctx) {
-	let companyId = await ctx.request.body.id;
-	let companyName = await ctx.request.body.name;
-	let companyDescription = await ctx.request.body.description;
-	console.log(ctx.request.body);
 
-	try {
-		await Company.update(
-			{name: companyName, description: companyDescription },
-			{
-				where: {
-					id: companyId
-				}
+//метод которрый принимает id картинки и путь к файлу картинки
+//и соответственно удаляет запись в базе и файл картинки на диске
+exports.delImage = async function (ctx) {
+	let id = ctx.request.query.id;
+	//получаем путь к файлу удаляя с помощью регулярного выражения
+	//ненужную часть url: http://localhost:3000/ или другую
+	let exp = /^htt\w+:\/\/\w+:\w+\//;
+	let path = ctx.request.query.path.replace(exp, '');
+	console.log(path);
+	//удаляем запись в базе
+		try {
+			await Image.destroy({
+			where: {
+				id: id
+			}
+			//затем удаляем файл с диска
+		}).then(() =>{
+				fs.unlink(path, function(err){
+					if (err) {
+						console.log(err);
+					} else {
+						console.log("Файл удалён");
+					}
+				});
 			});
 		ctx.status = 204;
 	}
