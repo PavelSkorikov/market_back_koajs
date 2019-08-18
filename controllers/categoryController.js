@@ -1,5 +1,20 @@
 const Category = require("../models").Category;
 
+//метод возвращающий количество категорий в базе
+exports.countCategories = async function(ctx) {
+	try {
+		await Category.count().then(c => {
+			console.log(c);
+			ctx.body = c;
+		});
+		ctx.status = 200;
+	}
+	catch (err) {
+		ctx.status = 500;
+	}
+};
+
+//создаем новую категорию
 exports.addCategory = async function (ctx) {
 	let categoryName = await ctx.request.body.name;
 	let categoryDescription = await ctx.request.body.description;
@@ -22,6 +37,8 @@ exports.addCategory = async function (ctx) {
 	}
 
 };
+
+//возвращаем все категории из базы данных
 exports.getCategory = async function (ctx) {
 	try {
 		await Category.findAll().then(categories => {
@@ -33,6 +50,7 @@ exports.getCategory = async function (ctx) {
 		ctx.status = 500;
 	}
 };
+
 //delete category and all subcategories
 exports.delCategory = async function (ctx) {
 	let categoryId = ctx.request.query.id;
