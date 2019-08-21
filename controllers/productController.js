@@ -2,20 +2,6 @@ const Product = require("../models").Product;
 const Image = require("../models").Image;
 
 
-//метод возвращающий количество товаров в базе
-exports.countProducts = async function(ctx) {
-	try {
-		await Product.count().then(c => {
-			console.log(c);
-			ctx.body = c;
-		});
-		ctx.status = 200;
-	}
-	catch (err) {
-		ctx.status = 500;
-	}
-};
-
 // метод добавления нового товара в базу
 exports.addProduct = async function (ctx) {
 	//считываем из запроса данные

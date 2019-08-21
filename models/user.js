@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
+    group: {
+      allowNull: false,
+      defaultValue: 'user',
+      type: DataTypes.STRING
+    },
     status: {
       allowNull: false,
       defaultValue: 'offline',
@@ -29,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0
     }
-  }, {});
+  });
   User.associate = function(models) {
     User.hasMany(models.Order, {
       foreignKey: "UserId",
@@ -38,10 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     User.hasOne(models.Contact, {
       foreignKey: "UserId",
       onDelete: "CASCADE"
-    });
-    User.belongsTo(models.Group, {
-      foreignKey: "GroupId",
-      onDelete: 'CASCADE'
     });
   };
 

@@ -20,6 +20,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      group: {
+        allowNull: false,
+        defaultValue: 'user',
+        type: Sequelize.STRING
+      },
       status: {
         allowNull: false,
         defaultValue: 'offline',
@@ -29,14 +34,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0
-      },
-      GroupId: {
-        type: Sequelize.UUID,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Groups',
-          key: 'id'
-        }
       },
       createdAt: {
         allowNull: false,

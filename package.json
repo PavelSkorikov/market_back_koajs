@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@koa/cors": "^2.2.3",
+    "argon2": "^0.24.0",
     "bcrypt-nodejs": "0.0.3",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",

@@ -1,4 +1,5 @@
-const views = require('koa-views'),
+const
+	views = require('koa-views'),
  logger = require('koa-morgan'),
  Router = require('koa-router'),
 	koaBody = require('koa-body'),
@@ -23,6 +24,10 @@ app.use(koaBody({
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://postgres:1@localhost:5432/market');
 
+const countRouter = require("./routes/countRouter.js");
+app.use(countRouter.routes());
+const userRouter = require("./routes/userRouter.js");
+app.use(userRouter.routes());
 const companyRouter = require("./routes/companyRouter.js");
 app.use(companyRouter.routes());
 const categoryRouter = require("./routes/categoryRouter.js");
@@ -31,6 +36,7 @@ const productRouter = require("./routes/productRouter.js");
 app.use(productRouter.routes());
 const imageRouter = require("./routes/imageRouter.js");
 app.use(imageRouter.routes());
+
 
 router.get('/', main);
 app.use(router.routes());

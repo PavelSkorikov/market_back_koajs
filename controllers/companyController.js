@@ -1,20 +1,6 @@
 const Company = require("../models").Company;
 
-//метод возвращающий количество компаний в базе
-exports.countCompanies = async function(ctx) {
-	try {
-		await Company.count().then(c => {
-			console.log(c);
-			ctx.body = c;
-		});
-		ctx.status = 200;
-	}
-	catch (err) {
-		ctx.status = 500;
-	}
-};
-
-//добавляем компанию и возвращаем имя и описание новой компании
+//добавляем компанию
 exports.addCompany = async function (ctx) {
 	let companyName = await ctx.request.body.name;
 	let companyDescription = await ctx.request.body.description;

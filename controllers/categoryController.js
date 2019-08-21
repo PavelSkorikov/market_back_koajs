@@ -1,19 +1,5 @@
 const Category = require("../models").Category;
 
-//метод возвращающий количество категорий в базе
-exports.countCategories = async function(ctx) {
-	try {
-		await Category.count().then(c => {
-			console.log(c);
-			ctx.body = c;
-		});
-		ctx.status = 200;
-	}
-	catch (err) {
-		ctx.status = 500;
-	}
-};
-
 //создаем новую категорию
 exports.addCategory = async function (ctx) {
 	let categoryName = await ctx.request.body.name;

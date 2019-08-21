@@ -1,8 +1,8 @@
-const categoryController = require("../controllers/categoryController");
-const Router = require('koa-router');
-const categoryRouter = new Router();
+const
+	categoryController = require("../controllers/categoryController"),
+	Router = require('koa-router'),
+	categoryRouter = new Router();
 
-categoryRouter.get('/countCategories', categoryController.countCategories);
 categoryRouter.post('/addCategory', categoryController.addCategory);
 categoryRouter.get('/getCategory', categoryController.getCategory);
 categoryRouter.del('/delCategory', categoryController.delCategory);
