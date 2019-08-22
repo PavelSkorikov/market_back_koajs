@@ -63,3 +63,21 @@ exports.delUser = async function (ctx) {
 		ctx.status = 500;
 	}
 };
+
+// метод изменения данных пользователя
+exports.putUser = async function (ctx) {
+	//считываем из запроса данные
+	let data = await ctx.request.body;
+	try {
+		await User.update(data, {
+			where: {
+				id: data.id
+			}
+		});
+		ctx.status = 204;
+	}
+	catch (err) {
+		console.log('error write to base');
+		ctx.status = 500;
+	}
+};

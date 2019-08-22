@@ -6,6 +6,6 @@ const
 userRouter.post('/addUser', userController.addUser);
 userRouter.get('/getUsers', userController.getUsers);
 userRouter.del('/delUser', userController.delUser);
-//userRouter.put('/putUser', userController.putUser);
+userRouter.put('/putUser', userController.putUser);
 
 module.exports = userRouter;
