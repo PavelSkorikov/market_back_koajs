@@ -68,6 +68,9 @@ exports.delUser = async function (ctx) {
 exports.putUser = async function (ctx) {
 	//считываем из запроса данные
 	let data = await ctx.request.body;
+	if(data.password){
+		data.password = await argon2.hash(data.password);
+	}
 	try {
 		await User.update(data, {
 			where: {
