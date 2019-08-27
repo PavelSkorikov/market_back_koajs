@@ -1,5 +1,5 @@
 const
-	categoryController = require("../controllers/categoryController"),
+	categoryController = require("../../controllers/categoryController"),
 	Router = require('koa-router'),
 	categoryRouter = new Router();
 

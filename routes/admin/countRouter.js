@@ -1,5 +1,5 @@
 const
-	countController = require("../controllers/countController.js"),
+	countController = require("../../controllers/countController.js"),
 	Router = require('koa-router'),
 	countRouter = new Router();
 

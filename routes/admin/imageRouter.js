@@ -1,4 +1,4 @@
-const imageController = require("../controllers/imageController.js");
+const imageController = require("../../controllers/imageController.js");
 const Router = require('koa-router');
 const imageRouter = new Router();
 

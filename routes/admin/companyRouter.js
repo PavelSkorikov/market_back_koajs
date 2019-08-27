@@ -1,5 +1,5 @@
 const
-	companyController = require("../controllers/companyController.js"),
+	companyController = require("../../controllers/companyController.js"),
 	Router = require('koa-router'),
 	companyRouter = new Router();
 

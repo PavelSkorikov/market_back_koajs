@@ -1,5 +1,5 @@
 const
-	userController = require("../controllers/userController.js"),
+	userController = require("../../controllers/userController.js"),
 	Router = require('koa-router'),
 	userRouter = new Router();
 
