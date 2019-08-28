@@ -32,9 +32,9 @@ router.use("/auth", authRouter.routes());
 
 // используем jwt, теперь все роуты которые лежат ниже
 // должны требовать авторизацию jwt
-router.use(jwtMiddleware({
-	secret: config.secret,
-}));
+//router.use(jwtMiddleware({
+//	secret: config.secret,
+//}));
 
 //роут  к админке сайта
 const adminRouter = require("./routes/admin/admin.js");

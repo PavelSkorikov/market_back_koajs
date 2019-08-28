@@ -10,6 +10,7 @@ exports.getUsers = async function (ctx) {
 			let userList = users.map((user) => {
 				return {
 					id: user.id,
+					name: user.name,
 					email: user.email,
 					discount: user.discount,
 					group: user.group,
@@ -30,15 +31,9 @@ exports.getUsers = async function (ctx) {
 //добавляем пользователя в базу
 exports.addUser = async function (ctx) {
 	let user = await ctx.request.body;
-	let passwordHashed = await argon2.hash(user.password);
+	user.password = await argon2.hash(user.password);
 	try {
-		await User.create({
-			password: passwordHashed,
-			email: user.email,
-			group: user.group,
-			status: user.status,
-			discount: user.discount
-		});
+		await User.create(user);
 		ctx.status = 200;
 	}
 	catch (err) {

@@ -22,6 +22,8 @@ exports.authUser = async function (ctx) {
 	ctx.body = {
 		token: jwt.sign({ id:user.id }, config.secret),
 		refreshtoken,
+		group: user.group,
+		name: user.name,
 	}
 
 };
