@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       allowNull: false,
-      defaultValue: 'offline',
+      defaultValue: 'online',
       type: DataTypes.STRING
     },
     discount: {

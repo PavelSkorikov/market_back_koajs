@@ -32,7 +32,7 @@ module.exports = {
       },
       status: {
         allowNull: false,
-        defaultValue: 'offline',
+        defaultValue: 'online',
         type: Sequelize.STRING
       },
       discount: {
