@@ -16,7 +16,7 @@ app.use(logger('tiny'));
 app.use(cors());
 app.use(koaBody({
 	jsonLimit: '1mb', // лимит для данных в формате json
-	formLimit: '5mb', // лимит для файлов загружаемых черех multipart/formdata
+	formLimit: '3mb', // лимит для файлов загружаемых черех multipart/formdata
 	formidable:{uploadDir: './uploads'},    //путь к директории куда будут загружаться файлы
 	multipart: true, // устанавливает возможность загрузки файлов из multipart/formdata
 	multiples: true,	// устанавливает возможность загрузки одновременно нескольких файлов
