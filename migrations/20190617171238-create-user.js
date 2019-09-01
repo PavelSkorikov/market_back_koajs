@@ -40,6 +40,10 @@ module.exports = {
         allowNull: false,
         defaultValue: 0
       },
+      refreshtoken: {
+        type: Sequelize.STRING,
+        unique: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

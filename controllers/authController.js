@@ -16,11 +16,13 @@ exports.authUser = async function (ctx) {
 		throw error;
 	}
 	//если e-mail и пароль совпали
-	// генерируем произвольный refreshtoken с помощью модуля uuid
+	// генерируем произвольный refreshtoken с помощью модуля uuid и записываем пользователю в базу данных
 	const refreshtoken = uuid();
+	await User.update({refreshtoken: refreshtoken}, {where: {id: user.id}});
 	// передаем пользователю в ответе новый токен и refreshtoken
+	// в токен добавляем только id пользователя, берем из конфига секретный ключ и времяжизни токена
 	ctx.body = {
-		token: jwt.sign({id: user.id}, config.secret),
+		token: jwt.sign({id: user.id}, config.secret, { expiresIn: config.time }),
 		refreshtoken,
 		group: user.group,
 		name: user.name,
@@ -41,11 +43,12 @@ exports.authUser = async function (ctx) {
 				throw error;
 			}
 			//если все нормально
-			// генерируем произвольный refreshtoken с помощью модуля uuid
+			// генерируем произвольный refreshtoken с помощью модуля uuid и записываем пользователю в базу данных
 			const refreshtoken = uuid();
+			await User.update({refreshtoken: refreshtoken}, {where: {id: user.id}});
 			// передаем пользователю в ответе новый токен и refreshtoken
 			ctx.body = {
-				token: jwt.sign({id: user.id}, config.secret),
+				token: jwt.sign({id: user.id}, config.secret, { expiresIn: config.time }),
 				refreshtoken,
 				group: user.group,
 				name: user.name,

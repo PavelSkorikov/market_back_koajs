@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
+    },
+    refreshtoken: {
+      type: DataTypes.STRING,
+      unique: true
     }
   });
   User.associate = function(models) {
