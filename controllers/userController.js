@@ -28,6 +28,26 @@ exports.getUsers = async function (ctx) {
 	}
 };
 
+//метод отдачи данных о пользователе по запросу с id пользователя
+exports.getUser = async (ctx) => {
+	const id = ctx.request.query.id;
+	try {
+		await User.findOne({where: {id: id}})
+			.then(user => {
+				console.log(user);
+				ctx.body = {
+					group: user.group,
+					name: user.name,
+					status: user.status,
+					discount: user.discount
+				}
+			});
+	} catch (err) {
+		console.log('error find user in base');
+		ctx.status = 500;
+	}
+};
+
 //добавляем пользователя в базу
 exports.addUser = async function (ctx) {
 	let user = await ctx.request.body;
@@ -45,7 +65,7 @@ exports.addUser = async function (ctx) {
 
 // удаляем пользователя по заданному email
 exports.delUser = async function (ctx) {
-	let id = ctx.request.query.id;
+	const id = ctx.request.query.id;
 	try {
 		await User.destroy({
 			where: {

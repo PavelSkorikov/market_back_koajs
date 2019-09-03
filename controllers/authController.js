@@ -23,9 +23,7 @@ exports.authUser = async function (ctx) {
 	// в токен добавляем только id пользователя, берем из конфига секретный ключ и времяжизни токена
 	ctx.body = {
 		token: jwt.sign({id: user.id}, config.secret, { expiresIn: config.time }),
-		refreshtoken,
-		group: user.group,
-		name: user.name,
+		refreshtoken
 	}
 };
 
@@ -49,8 +47,34 @@ exports.authUser = async function (ctx) {
 			// передаем пользователю в ответе новый токен и refreshtoken
 			ctx.body = {
 				token: jwt.sign({id: user.id}, config.secret, { expiresIn: config.time }),
-				refreshtoken,
-				group: user.group,
-				name: user.name,
+				refreshtoken
+			}
+		};
+
+//выход пользователя
+exports.logout = async function (ctx) {
+	const id = ctx.request.body.id;
+	//удаляем refreshtoken у пользователя в базе
+	await User.update({refreshtoken: null}, {where: {id: id}});
+};
+
+		//метод обновления токена после истечения времени его жизни
+		exports.refreshToken = async (ctx) => {
+			//получаем в запросе текущий refreshtoken
+			const { refreshtoken } = await ctx.request.body;
+			//находим в базе пользователя с таким refreshtoken
+			const user = await User.findOne({where: {refreshtoken: refreshtoken}});
+			//если refreshtoken отсутствует выполняем выход,
+			// в koa выход сопровождается ошибкой 404
+			if(!user.refreshtoken){
+				return;
+			}
+			//иначе генерируем новый refreshtoken, записываем пользователю в базу,
+			// новый токен с id пользователя и отправляем их обрантно клиенту
+			const newRefreshtoken = uuid();
+			await User.update({refreshtoken: newRefreshtoken}, {where: {id: user.id}});
+			ctx.body = {
+				token: jwt.sign({id: user.id}, config.secret, { expiresIn: config.time }),
+				refreshtoken: newRefreshtoken
 			}
 		};
