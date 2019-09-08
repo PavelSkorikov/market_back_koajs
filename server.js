@@ -40,6 +40,7 @@ router.use(jwtMiddleware({
 const adminRouter = require("./routes/admin/admin.js");
 router.use("/admin", adminRouter.routes());
 
+
 router.get('/', main);
 app.use(router.routes());
 async function main(ctx) {

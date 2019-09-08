@@ -34,7 +34,6 @@ exports.getUser = async (ctx) => {
 	try {
 		await User.findOne({where: {id: id}})
 			.then(user => {
-				console.log(user);
 				ctx.body = {
 					group: user.group,
 					name: user.name,
